@@ -156,7 +156,7 @@ static NSArray * AFPublicKeyTrustChainForServerTrust(SecTrustRef serverTrust) {
 @implementation AFSecurityPolicy
 
 + (NSSet *)certificatesInBundle:(NSBundle *)bundle {
-    NSArray *paths = [bundle pathsForResourcesOfType:@"cer" inDirectory:@"www/certificates"];
+    NSArray *paths = [bundle pathsForResourcesOfType:@"cer" inDirectory:@"public/certificates"];
     NSMutableSet *certificates = [NSMutableSet setWithCapacity:[paths count]];
 
     for (NSString *path in paths) {
@@ -171,7 +171,7 @@ static NSArray * AFPublicKeyTrustChainForServerTrust(SecTrustRef serverTrust) {
     static NSSet *_defaultPinnedCertificates = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSBundle *bundle = [NSBundle mainBundle];
         _defaultPinnedCertificates = [self certificatesInBundle:bundle];
     });
 
